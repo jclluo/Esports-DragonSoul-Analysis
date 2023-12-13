@@ -1,1 +1,7 @@
-# Esports-DragonSoul-Analysis
+# Rift Mastery: Logistic Analysis of LoL Dragon Souls
+**Name(s)**: Chris Luo
+
+### Framing the Problem
+***Dragon soul*** is a powerful team-wide bonus that is granted to a team after they haev succeessfully slain four Elemental Drakes - four powerful monster that requires the entire team to conquer. In the game of League of Legends, even in the pro scene, whoever acquire the Dragon Soul almost equals to declaring the victory. Thus, which team will acquire the Dragon Soul has become a crucial part of prediction for all League of Legends game forcasters. In this project we will deal with the following dataset: "2023_LoL_esports_match_data_from_OraclesElixir". Below are the first few lines of the dataset.\
+To achieve this, we need to build a regression model based on a various of features that can help us predict which side is likely to retireve the dragon soul. And since for forcasters, how likely the prediction is correct is the most essential part, accuracy will be used as the metric. At the same time, the other three common used metrics, precision, recall, and F1-score will all be used to assed if the model is bias or over/underfitted.\
+First, let's clean the data and find the features for the regression.
