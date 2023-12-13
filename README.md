@@ -181,8 +181,8 @@
 </div>
 
 To achieve this, we need to build a regression model based on a various of features that can help us predict which side is likely to retireve the dragon soul. And since for forcasters, how likely the prediction is correct is the most essential part, accuracy will be used as the metric. At the same time, the other three common used metrics, precision, recall, and F1-score will all be used to assed if the model is bias or over/underfitted.\
-First, let's clean the data and find the features for the regression. The dataframe below has being clean as the same process in my previous project. Here are the remaining columns:
-Index(['gameid', 'datacompleteness', 'league', 'year', 'split', 'playoffs',
+First, let's clean the data and find the features for the regression. The dataframe below has being clean as the same process in my previous project. Here are the remaining columns:\
+<u>['gameid', 'datacompleteness', 'league', 'year', 'split', 'playoffs',
            'date', 'game', 'patch', 'participantid', 'side', 'position',
            'playername', 'playerid', 'teamname', 'teamid', 'champion', 'ban1',
            'ban2', 'ban3', 'ban4', 'ban5', 'gamelength', 'result', 'kills',
@@ -202,31 +202,17 @@ Index(['gameid', 'datacompleteness', 'league', 'year', 'split', 'playoffs',
            'opp_goldat15', 'opp_xpat15', 'opp_csat15', 'golddiffat15',
            'xpdiffat15', 'csdiffat15', 'killsat15', 'assistsat15', 'deathsat15',
            'opp_killsat15', 'opp_assistsat15', 'opp_deathsat15', 'kdaat15',
-           'dragons'],
-          dtype='object')
+           'dragons']
 
 
 
-\In addition, As only a well prepared and developed team, we should use features that can reflect a team's overall ability.Also, as it is a mid-game prediction, we should not use the final statistics such as 'kills' and 'assists' which are collected post game. Instead, we should use statistics from the first half of the game as features for this model.\
+In addition, As only a well prepared and developed team, we should use features that can reflect a team's overall ability.Also, as it is a mid-game prediction, we should not use the final statistics such as 'kills' and 'assists' which are collected post game. Instead, we should use statistics from the first half of the game as features for this model.
 
 Teams which obtain the first dragon are more likely to snowball their way to victory as they have more control over the map.
 
 Combined, we should use features below:\
 'goldat15', 'xpat15', 'csat15','opp_goldat15', 'opp_xpat15', 'opp_csat15', 'golddiffat15','xpdiffat15', 'csdiffat15', 'killsat15', 'assistsat15', 'deathsat15','opp_killsat15', 'opp_assistsat15', 'opp_deathsat15', 'firstdragon',and 'firstbaron'. And here is the first few lines of the dataframe:
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
