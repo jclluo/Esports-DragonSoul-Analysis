@@ -1,5 +1,5 @@
 # Rift Mastery: Logistic Analysis of LoL Dragon Souls
-**Name(s)**: Chris Luo
+By: Chris Luo
 
 ### Framing the Problem
 ***Dragon soul*** is a powerful team-wide bonus that is granted to a team after they haev succeessfully slain four Elemental Drakes - four powerful monster that requires the entire team to conquer. In the game of League of Legends, even in the pro scene, whoever acquire the Dragon Soul almost equals to declaring the victory. Thus, which team will acquire the Dragon Soul has become a crucial part of prediction for all League of Legends game forcasters. In this project we will deal with the following dataset: "2023_LoL_esports_match_data_from_OraclesElixir". Below are the first few lines of the dataset.\
@@ -391,13 +391,29 @@ For the first model, I will build a logistic regression model using _'xpat15', '
 Here I have split the datatrame into dataframe for test and dataframe for trainning with a test_size of **0.3**. This means that 30% of the data is allocated for testing purposes while the remaining 70% is used for training the model. The split is crucial for evaluating the model's performance on unseen data, ensuring that it not only learns from the training set but also generalizes well to new, unseen data. In this setup, I first fix any missing data in the 'xpat15' and 'golddiffat15' columns. Then, I use these columns along with 'firstdragon' to train a logistic regression model. This model learns to predict outcomes based on how much experience and gold teams have at 15 minutes into the game, and whether they captured the first dragon. The whole process is automated in a pipeline to make it easier and more efficient.\
 Here is the result: ${logit(dragon soul)}=-6e-05\text{firstbaron} + 0.0002{firstdragon} - 0.0{golddiffat15} -5.7238347596014364e-08$\
 Now, we will use this model and apply this on the testing part of the dataframe. Following are the four performance metrics for this model:
-| Metric    | Value                  |
-|-----------|------------------------|
-| Accuracy  | 0.8178726035868893     |
-| Precision | 0.0                    |
-| Recall    | 0.0                    |
-| F1 Score  | 0.0                    |
-Though the accuracy is high, the other metrics indicate that it is not effectively identifying the positive class. It seems like this model has severely overfitted. Resulting in an incapability of applying the model to any other data. We will fix this in the final model.
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Accuracy</td>
+    <td>0.8178726035868893</td>
+  </tr>
+  <tr>
+    <td>Precision</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>Recall</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>F1 Score</td>
+    <td>0.0</td>
+  </tr>
+</table>
+\Though the accuracy is high, the other metrics indicate that it is not effectively identifying the positive class. It seems like this model has severely overfitted. Resulting in an incapability of applying the model to any other data. We will fix this in the final model.
 
 ### Final Model
 For the final model, I want to include _firstbaron,csdiffat15,killsat15.assistsat15,deathsat15_.
@@ -449,13 +465,30 @@ In this section of our analysis, I have focused on optimizing our logistic regre
 And thus, here is the formula for my final regression mode:
 $\text{logit}(\text{dragon soul}) = -3.6060 + (0.3421)*\text{xpdiffat15} + (0.5512)*\text{csdiffat15} + (0.4734)*\text{golddiffat15} + (0.3611)*\text{kdaat15} + (0.3522)*\text{xpdiffat15 csdiffat15} + (0.4767)*\text{xpdiffat15 golddiffat15} + (0.5054)*\text{xpdiffat15 kdaat15} + (0.5910)*\text{csdiffat15 golddiffat15} + (0.8880)*\text{csdiffat15 kdaat15} + (0.6805)*\text{golddiffat15 kdaat15} + (0.3227)*\text{firstbaron} + (0.0000)*\text{firstdragon}$
 Simialr to the baseline model. Now we should fit this into the testing part of the dataframe and below is the result:
-| Metric    | Value                 |
-|-----------|-----------------------|
-| Accuracy  | 0.8214285714285714    |
-| Precision | 0.48214285714285715   |
-| Recall    | 0.023417172593235037  |
-| F1 Score  | 0.04466501240694789   |
-As seem, all the metrics has seem increase. Though Accuracy for this model has only increased slightly. Precision, Recall, and F1 score has all increase dramatically through more feature engineering and increasing useful features. This indicates that the model is now better at correctly identifying positive cases (as shown by the improved Precision and Recall) and balancing these two aspects (as reflected in the higher F1 Score). The enhancements in feature engineering and the addition of relevant features have contributed significantly to the model's ability to make more accurate and reliable predictions, especially in distinguishing between different classes effectively.
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Accuracy</td>
+    <td>0.8214285714285714</td>
+  </tr>
+  <tr>
+    <td>Precision</td>
+    <td>0.48214285714285715</td>
+  </tr>
+  <tr>
+    <td>Recall</td>
+    <td>0.023417172593235037</td>
+  </tr>
+  <tr>
+    <td>F1 Score</td>
+    <td>0.04466501240694789</td>
+  </tr>
+</table>
+
+\As seem, all the metrics has seem increase. Though Accuracy for this model has only increased slightly. Precision, Recall, and F1 score has all increase dramatically through more feature engineering and increasing useful features. This indicates that the model is now better at correctly identifying positive cases (as shown by the improved Precision and Recall) and balancing these two aspects (as reflected in the higher F1 Score). The enhancements in feature engineering and the addition of relevant features have contributed significantly to the model's ability to make more accurate and reliable predictions, especially in distinguishing between different classes effectively.
 
 ### Fairness Analysis
 To see if the model is biased, we need to create a permutation test. Though all are esports competitions, but playoff games are typically more intense and representative of the League of Legends pro-scene. Thus, I will conduct a hypothesis testing below to see if this model is biased or not:
