@@ -473,6 +473,8 @@ To see if the model is biased, we need to create a permutation test. Though all 
 * A standard significance level (α) of 0.05 is chosen. A p-value less than 0.05 will lead to rejecting the null hypothesis, suggesting significant differences in model performance between playoff and non-playoff games.
 
 Below is a code snippet of the permutation test:\
+```python
+
 playoff_games = dff[dff['playoffs'] == 1]
 playoff_games = playoff_games[['dragons','firstbaron', 'firstdragon', 'golddiffat15', 'xpdiffat15', 'csdiffat15', 'kdaat15']]
 non_playoff_games = dff[dff['playoffs'] == 0]
